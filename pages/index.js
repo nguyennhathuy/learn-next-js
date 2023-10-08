@@ -9,6 +9,7 @@ function Home() {
       // <div>
       //   <h1>Hello Im home</h1>
       //   <ul>
+      
       //     {
       //       clients.map((client, index) => (
       //         <li key={index}><Link href={`/clients/${client.clientId}`}>{client.clientId} profile</Link></li>
