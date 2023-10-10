@@ -1,10 +1,14 @@
 import { COLOR, SIZE, clients } from "@/utils/enum"
 import Link from "next/link"
 import classes from "@/styles/Test.module.css"
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
+import { useSearchParams } from "next/navigation";
+
 function Home() {
-  const [currentColor, setCurrentColor] = useState('Black');
-  const [currentSize, setCurrentSize] = useState('XL');
+  const searchParams = useSearchParams()
+  const currentColor = searchParams.get("color")
+  const currentSize = searchParams.get("size")
   return (
       // <div>
       //   <h1>Hello Im home</h1>
@@ -23,13 +27,32 @@ function Home() {
 
         <h2 className={classes.color}>COLOR</h2>
         {
-          COLOR.map(color => <button onClick={() => setCurrentColor(color)} className={`${classes.button} ${currentColor === color ? classes.activeButton : ""}`}>{color}</button>)
+          COLOR.map(color => 
+            <Link
+              className={`${classes.button} ${currentColor === color ? classes.activeButton : ""}`}
+              href={
+                `?color=${color}&size=${currentSize}`
+              }
+            >
+              {color}
+            </Link>
+          )
         }
         <h2 className={classes.size}>SIZE</h2>
         {
-          SIZE.map(size => <button onClick={() => setCurrentSize(size)} className={`${classes.button} ${currentSize === size ? classes.activeButton : ""}`}>{size}</button>)
+          SIZE.map(size => 
+            <Link
+              className={`${classes.button} ${currentSize === size ? classes.activeButton : ""}`}
+              href={
+                `?color=${currentColor}&size=${size}`
+              }
+            >
+              {size}
+            </Link>
+            
+          )
         }
-        <div>
+        <div className={classes.img}>
           <img  width="400px" src="/black-tee.jpg" alt="tee" />
         </div>
       </div>
